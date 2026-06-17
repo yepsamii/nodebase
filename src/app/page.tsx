@@ -1,6 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { caller } from "@/trpc/server";
 
+/**
+ * Renders the home page, fetching user data server-side.
+ *
+ * @returns The home page layout
+ */
 export default async function Home() {
   const users = await caller.getUsers();
   console.log(users);
