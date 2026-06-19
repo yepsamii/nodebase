@@ -74,7 +74,7 @@ const RegisterForm = () => {
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="p-6">
         <CardHeader className="text-center">
           <CardTitle>Get Started</CardTitle>
           <CardDescription>Create an account to get started</CardDescription>
@@ -83,24 +83,6 @@ const RegisterForm = () => {
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-6">
               <div className="space-y-4">
-                <Button
-                  variant={"outline"}
-                  type="button"
-                  className="w-full"
-                  disabled={isPending}
-                >
-                  Continue with Github
-                </Button>
-                <Button
-                  variant={"outline"}
-                  type="button"
-                  className="w-full"
-                  disabled={isPending}
-                >
-                  Continue with Google
-                </Button>
-              </div>
-              <div className="space-y-6">
                 <FormField
                   control={form.control}
                   name="name"
@@ -175,6 +157,24 @@ const RegisterForm = () => {
                   disabled={isPending}
                 >
                   Sign Up
+                </Button>
+              </div>
+              <div className="space-y-2">
+                <Button
+                  variant={"outline"}
+                  type="button"
+                  className="w-full"
+                  disabled={isPending}
+                >
+                  Continue with Github
+                </Button>
+                <Button
+                  variant={"outline"}
+                  type="button"
+                  className="w-full"
+                  disabled={isPending}
+                >
+                  Continue with Google
                 </Button>
               </div>
               <div className="text-center text-sm">

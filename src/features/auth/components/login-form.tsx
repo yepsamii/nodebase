@@ -63,8 +63,8 @@ const LoginForm = () => {
   const isPending = form.formState.isSubmitting;
 
   return (
-    <div className="space-y-6">
-      <Card>
+    <div>
+      <Card className="p-6">
         <CardHeader className="text-center">
           <CardTitle>Welcome Back</CardTitle>
           <CardDescription>Login to Continue</CardDescription>
@@ -72,24 +72,6 @@ const LoginForm = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-6">
-              <div className="space-y-4">
-                <Button
-                  variant={"outline"}
-                  type="button"
-                  className="w-full"
-                  disabled={isPending}
-                >
-                  Continue with Github
-                </Button>{" "}
-                <Button
-                  variant={"outline"}
-                  type="button"
-                  className="w-full"
-                  disabled={isPending}
-                >
-                  Continue with Google
-                </Button>
-              </div>
               <div className="space-y-6">
                 <FormField
                   control={form.control}
@@ -131,6 +113,24 @@ const LoginForm = () => {
                   disabled={isPending}
                 >
                   Login
+                </Button>
+              </div>
+              <div className="space-y-2">
+                <Button
+                  variant={"outline"}
+                  type="button"
+                  className="w-full"
+                  disabled={isPending}
+                >
+                  Continue with Github
+                </Button>{" "}
+                <Button
+                  variant={"outline"}
+                  type="button"
+                  className="w-full"
+                  disabled={isPending}
+                >
+                  Continue with Google
                 </Button>
               </div>
               <div className="text-center text-sm">
