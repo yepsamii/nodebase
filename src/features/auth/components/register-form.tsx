@@ -1,0 +1,161 @@
+"use client";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
+
+const registerSchema = z
+  .object({
+    email: z.email("Please enter a valid email."),
+    password: z.string().min(1, "Password is required."),
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Password don't match",
+    path: ["confirmPassword"],
+  });
+
+type RegisterFormValues = z.infer<typeof registerSchema>;
+
+const RegisterForm = () => {
+  const router = useRouter();
+
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
+
+  const onSubmit = (values: RegisterFormValues) => {
+    console.log(values);
+  };
+
+  const isPending = form.formState.isSubmitting;
+
+  return (
+    <div className="space-y-6">
+      <Card>
+        <CardHeader className="text-center">
+          <CardTitle>Get Started</CardTitle>
+          <CardDescription>Create an account to get started</CardDescription>
+        </CardHeader>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <Button
+                  variant={"outline"}
+                  type="button"
+                  className="w-full"
+                  disabled={isPending}
+                >
+                  Continue with Github
+                </Button>
+                <Button
+                  variant={"outline"}
+                  type="button"
+                  className="w-full"
+                  disabled={isPending}
+                >
+                  Continue with Google
+                </Button>
+              </div>
+              <div className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="email"
+                          placeholder="name@email.com"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="********"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="password"
+                          placeholder="********"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button
+                  className="w-full"
+                  type="submit"
+                  disabled={isPending}
+                >
+                  Sign Up
+                </Button>
+              </div>
+              <div className="text-center text-sm">
+                Already have an account ?{" "}
+                <Link
+                  href={"/login"}
+                  className="underline underline-offset-4"
+                >
+                  Login
+                </Link>
+              </div>
+            </div>
+          </form>
+        </Form>
+        <CardContent></CardContent>
+      </Card>
+    </div>
+  );
+};
+
+export default RegisterForm;
