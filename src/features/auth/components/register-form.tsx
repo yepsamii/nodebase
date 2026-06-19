@@ -26,6 +26,7 @@ import { toast } from "sonner";
 
 const registerSchema = z
   .object({
+    name: z.string(),
     email: z.email("Please enter a valid email."),
     password: z.string().min(1, "Password is required."),
     confirmPassword: z.string(),
@@ -43,6 +44,7 @@ const RegisterForm = () => {
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -52,7 +54,7 @@ const RegisterForm = () => {
   const onSubmit = async (values: RegisterFormValues) => {
     await authClient.signUp.email(
       {
-        name: values.email,
+        name: values.name,
         email: values.email,
         password: values.password,
         callbackURL: "/",
@@ -99,6 +101,22 @@ const RegisterForm = () => {
                 </Button>
               </div>
               <div className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="text"
+                          placeholder="John Doe"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="email"
