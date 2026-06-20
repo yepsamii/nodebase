@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const loginSchema = z.object({
   email: z.email("Please enter a valid email."),
@@ -122,14 +123,26 @@ const LoginForm = () => {
                   className="w-full"
                   disabled={isPending}
                 >
+                  <Image
+                    alt="Github"
+                    src={"/logos/github.svg"}
+                    width={16}
+                    height={16}
+                  />
                   Continue with Github
-                </Button>{" "}
+                </Button>
                 <Button
                   variant={"outline"}
                   type="button"
                   className="w-full"
                   disabled={isPending}
                 >
+                  <Image
+                    alt="Google"
+                    src={"/logos/google.svg"}
+                    width={16}
+                    height={16}
+                  />
                   Continue with Google
                 </Button>
               </div>
