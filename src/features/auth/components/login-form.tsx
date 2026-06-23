@@ -23,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
+import Image from "next/image";
 
 const loginSchema = z.object({
   email: z.email("Please enter a valid email."),
@@ -63,8 +64,8 @@ const LoginForm = () => {
   const isPending = form.formState.isSubmitting;
 
   return (
-    <div className="space-y-6">
-      <Card>
+    <div>
+      <Card className="p-6">
         <CardHeader className="text-center">
           <CardTitle>Welcome Back</CardTitle>
           <CardDescription>Login to Continue</CardDescription>
@@ -72,24 +73,6 @@ const LoginForm = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <div className="space-y-6">
-              <div className="space-y-4">
-                <Button
-                  variant={"outline"}
-                  type="button"
-                  className="w-full"
-                  disabled={isPending}
-                >
-                  Continue with Github
-                </Button>{" "}
-                <Button
-                  variant={"outline"}
-                  type="button"
-                  className="w-full"
-                  disabled={isPending}
-                >
-                  Continue with Google
-                </Button>
-              </div>
               <div className="space-y-6">
                 <FormField
                   control={form.control}
@@ -104,6 +87,7 @@ const LoginForm = () => {
                           {...field}
                         />
                       </FormControl>
+                      <FormMessage />
                     </FormItem>
                   )}
                 />
@@ -130,6 +114,36 @@ const LoginForm = () => {
                   disabled={isPending}
                 >
                   Login
+                </Button>
+              </div>
+              <div className="space-y-2">
+                <Button
+                  variant={"outline"}
+                  type="button"
+                  className="w-full"
+                  disabled={isPending}
+                >
+                  <Image
+                    alt="Github"
+                    src={"/logos/github.svg"}
+                    width={16}
+                    height={16}
+                  />
+                  Continue with Github
+                </Button>
+                <Button
+                  variant={"outline"}
+                  type="button"
+                  className="w-full"
+                  disabled={isPending}
+                >
+                  <Image
+                    alt="Google"
+                    src={"/logos/google.svg"}
+                    width={16}
+                    height={16}
+                  />
+                  Continue with Google
                 </Button>
               </div>
               <div className="text-center text-sm">
